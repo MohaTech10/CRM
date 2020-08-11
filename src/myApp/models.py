@@ -18,7 +18,11 @@ class Customer(models.Model):
         return self.name  # it must return string value
 
 
+class Tags(models.Model):
+    tag_name = models.CharField(max_length=11, null=True)
 
+    def __str__(self):
+        return self.tag_name
 
 class Products(models.Model):
 
@@ -39,4 +43,24 @@ class Products(models.Model):
 
 
 
+
+    if one USER object has a lot of Orders another object => 80% Foreign key
+
+
 '''
+
+class Order(models.Model):
+
+
+    STATUS = (
+            ("Pending", "Pending"),
+            ("Out for delivery", "Out for delivery"),
+            ("Delivered", "Delivered"),
+    )
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=200, choices=STATUS, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    products = models.ManyToManyField(Products)
+
+    def __str__(self):
+        return self.customer.name + " order"
