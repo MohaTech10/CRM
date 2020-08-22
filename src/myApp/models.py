@@ -24,12 +24,15 @@ class Tags(models.Model):
     def __str__(self):
         return self.tag_name
 
+        # // اجهزة الكترونيه
+
 class Products(models.Model):
 
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField(null=True)
     description = models.CharField(max_length=200, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag)
 
 
     def __str__(self):
